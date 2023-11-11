@@ -2,7 +2,7 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Caravan } from "lucide-react";
+import { LayoutDashboard, Caravan, SigmaIcon } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -21,6 +21,12 @@ const MainNav = () => {
       path: "/dashboard/categories",
       icon: <Caravan />,
       active: pathname === "/dashboard/categories",
+    },
+    {
+      label: "Sizes",
+      path: "/dashboard/sizes",
+      icon: <SigmaIcon />,
+      active: pathname === "/dashboard/sizes",
     },
   ];
 
