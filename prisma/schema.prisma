@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String?
+  upperId   String?   @unique
+  upper     Category? @relation("CategoryToOwn", references: [upperId], fields: [id])
+  current   Category? @relation("CategoryToOwn")
+  Product   Product[] @relation("ProductToCategory")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Size {
+  id        String         @id @default(cuid())
+  name      String
+  value     String
+  Products  ProductEntry[] @relation("ProductEntryToSize")
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+model Color {
+  id        String         @id @default(cuid())
+  name      String
+  value     String
+  Products  ProductEntry[] @relation("ProductEntryToColor")
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+model Product {
+  id          String         @id @default(cuid())
+  name        String
+  description String?
+  price       Decimal
+  isFeatured  Boolean
+  categoryId  String
+  category    Category       @relation("ProductToCategory", fields: [categoryId], references: [id])
+  products    ProductEntry[] @relation("ProductEntryToProduct")
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model ProductEntry {
+  productId String
+  product   Product  @relation("ProductEntryToProduct", fields: [productId], references: [id])
+  colorId   String
+  color     Color    @relation("ProductEntryToColor", fields: [colorId], references: [id])
+  sizeId    String
+  size      Size     @relation("ProductEntryToSize", fields: [sizeId], references: [id])
+  sku       String
+  qty       Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([productId, colorId, sizeId])
+}
