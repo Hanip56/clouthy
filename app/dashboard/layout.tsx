@@ -9,10 +9,10 @@ export default function DashboardLayout({
   return (
     <div className="flex">
       <Topbar />
-      <div className="hidden md:block w-60 border-r">
+      <div className="hidden md:block w-60 border-r flex-shrink-0">
         <Sidebar />
       </div>
-      <main className="pt-14">{children}</main>
+      <main className="w-full h-full pt-14">{children}</main>
     </div>
   );
 }

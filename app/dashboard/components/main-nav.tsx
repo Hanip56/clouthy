@@ -2,7 +2,7 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, BookTemplateIcon } from "lucide-react";
+import { LayoutDashboard, Caravan } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +15,12 @@ const MainNav = () => {
       path: "/dashboard",
       icon: <LayoutDashboard />,
       active: pathname === "/dashboard",
+    },
+    {
+      label: "Categories",
+      path: "/dashboard/categories",
+      icon: <Caravan />,
+      active: pathname === "/dashboard/categories",
     },
   ];
 

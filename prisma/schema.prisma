@@ -11,14 +11,14 @@ datasource db {
 }
 
 model Category {
-  id        String    @id @default(cuid())
+  id        String     @id @default(cuid())
   name      String?
-  upperId   String?   @unique
-  upper     Category? @relation("CategoryToOwn", references: [upperId], fields: [id])
-  current   Category? @relation("CategoryToOwn")
-  Product   Product[] @relation("ProductToCategory")
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  upperId   String?
+  upper     Category?  @relation("CategoryToOwn", references: [id], fields: [upperId])
+  current   Category[] @relation("CategoryToOwn")
+  Product   Product[]  @relation("ProductToCategory")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model Size {
@@ -47,7 +47,7 @@ model Product {
   isFeatured  Boolean
   categoryId  String
   category    Category       @relation("ProductToCategory", fields: [categoryId], references: [id])
-  products    ProductEntry[] @relation("ProductEntryToProduct")
+  items       ProductEntry[] @relation("ProductEntryToProduct")
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
 }
@@ -59,7 +59,7 @@ model ProductEntry {
   color     Color    @relation("ProductEntryToColor", fields: [colorId], references: [id])
   sizeId    String
   size      Size     @relation("ProductEntryToSize", fields: [sizeId], references: [id])
-  sku       String
+  sku       Int      @default(autoincrement())
   qty       Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
