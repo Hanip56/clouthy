@@ -108,7 +108,7 @@ const CreateForm = ({ initialData, uppers }: Props) => {
                   <Select
                     disabled={isLoading}
                     onValueChange={field.onChange}
-                    value={field.value}
+                    defaultValue={field.value}
                   >
                     <SelectTrigger>
                       <SelectValue
