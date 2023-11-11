@@ -2,7 +2,7 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Caravan, SigmaIcon } from "lucide-react";
+import { LayoutDashboard, Caravan, SigmaIcon, CloudSun } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -27,6 +27,12 @@ const MainNav = () => {
       path: "/dashboard/sizes",
       icon: <SigmaIcon />,
       active: pathname === "/dashboard/sizes",
+    },
+    {
+      label: "Color",
+      path: "/dashboard/colors",
+      icon: <CloudSun />,
+      active: pathname === "/dashboard/colors",
     },
   ];
 
