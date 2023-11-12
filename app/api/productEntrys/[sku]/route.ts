@@ -1,4 +1,6 @@
 import prisma from "@/lib/db";
+import { options } from "@/lib/nextAuthOptions";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
@@ -6,6 +8,12 @@ export async function PATCH(
   { params }: { params: { sku: string } }
 ) {
   try {
+    const session = await getServerSession(options);
+
+    if (!session || !session.user.isAdmin) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
     const body = await req.json();
 
     const { productId, sizeId, colorId, qty } = body;
@@ -45,6 +53,12 @@ export async function DELETE(
   { params }: { params: { sku: string } }
 ) {
   try {
+    const session = await getServerSession(options);
+
+    if (!session || !session.user.isAdmin) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
     if (!params.sku) {
       return new NextResponse("sku is required", { status: 400 });
     }

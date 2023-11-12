@@ -1,4 +1,5 @@
 import prisma from "@/lib/db";
+import { options } from "@/lib/nextAuthOptions";
 import { getServerSession } from "next-auth";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 
@@ -9,26 +10,26 @@ export const ourFileRouter = {
   // Define as many FileRoutes as you like, each with a unique routeSlug
   imageUploader: f({ image: { maxFileSize: "4MB" } })
     // Set permissions and file types for this FileRoute
-    // .middleware(async ({ req }) => {
-    //   // This code runs on your server before upload
-    //   const session = await getServerSession();
-    //   if (!session || !session.user?.email) throw new Error("Unauthenticated");
+    .middleware(async ({ req }) => {
+      // This code runs on your server before upload
+      const session = await getServerSession(options);
+      if (!session || !session.user?.isAdmin) throw new Error("Unauthorized");
 
-    //   const user = await prisma.user.findUnique({
-    //     where: {
-    //       email: session.user.email,
-    //     },
-    //   });
+      const user = await prisma.user.findUnique({
+        where: {
+          email: session.user.email,
+        },
+      });
 
-    //   // If you throw, the user will not be able to upload
-    //   if (!user) throw new Error("Unauthorized");
+      // If you throw, the user will not be able to upload
+      if (!user) throw new Error("Unauthorized");
 
-    //   // Whatever is returned here is accessible in onUploadComplete as `metadata`
-    //   return { userId: user.id };
-    // })
+      // Whatever is returned here is accessible in onUploadComplete as `metadata`
+      return { userId: user.id };
+    })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
-      // console.log("Upload complete for userId:", metadata.userId);
+      console.log("Upload complete for userId:", metadata.userId);
 
       console.log("file url", file.url);
     }),

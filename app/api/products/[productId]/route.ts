@@ -1,5 +1,7 @@
 import prisma from "@/lib/db";
+import { options } from "@/lib/nextAuthOptions";
 import { utapi } from "@/lib/uploadThingServer";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
@@ -7,6 +9,12 @@ export async function PATCH(
   { params }: { params: { productId: string } }
 ) {
   try {
+    const session = await getServerSession(options);
+
+    if (!session || !session.user.isAdmin) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
     const body = await req.json();
 
     const productExist = await prisma.product.findUnique({
@@ -61,6 +69,12 @@ export async function DELETE(
   req: Request,
   { params }: { params: { productId: string } }
 ) {
+  const session = await getServerSession(options);
+
+  if (!session || !session.user.isAdmin) {
+    return new NextResponse("Unauthorized", { status: 401 });
+  }
+
   if (!params.productId) {
     return new NextResponse("Product id is required", { status: 400 });
   }
