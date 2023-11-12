@@ -1,9 +1,14 @@
 import Link from "next/link";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { ShoppingBag, User } from "lucide-react";
+import { LogOut, ShoppingBag, User } from "lucide-react";
+import { getServerSession } from "next-auth";
+import { options } from "@/lib/nextAuthOptions";
+import LogoutBtn from "./logout-btn";
 
-const Navbar = () => {
+const Navbar = async () => {
+  const session = await getServerSession(options);
+
   const routes = [
     {
       path: "/",
@@ -41,15 +46,18 @@ const Navbar = () => {
           >
             <ShoppingBag className="w-5 h-5" />
           </Button>
-          <Link href="/login">
-            <Button
-              size="icon"
-              variant="ghost"
-              className="rounded-full hover:bg-gray-50"
-            >
-              <User className="w-5 h-5" />
-            </Button>
-          </Link>
+          {!session && (
+            <Link href="/login">
+              <Button
+                size="icon"
+                variant="ghost"
+                className="rounded-full hover:bg-gray-50"
+              >
+                <User className="w-5 h-5" />
+              </Button>
+            </Link>
+          )}
+          {session && <LogoutBtn />}
         </div>
       </nav>
     </div>

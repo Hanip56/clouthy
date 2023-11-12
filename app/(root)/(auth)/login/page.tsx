@@ -8,7 +8,7 @@ const LoginPage = () => {
   return (
     <div>
       <Heading />
-      <div className="flex items-center max-w-5xl mx-auto my-6">
+      <div className="flex items-center max-w-5xl mx-auto my-12">
         <div className="flex-1">
           <Image
             src={LoginIllustration}
