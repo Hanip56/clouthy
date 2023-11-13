@@ -71,7 +71,8 @@ model Color {
 
 model Product {
   id          String         @id @default(cuid())
-  name        String
+  name        String         @unique
+  slug        String?        @unique
   description String?
   price       Decimal
   isFeatured  Boolean

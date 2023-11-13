@@ -3,6 +3,7 @@ import { options } from "@/lib/nextAuthOptions";
 import { utapi } from "@/lib/uploadThingServer";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+import slugify from "slugify";
 
 export async function PATCH(
   req: Request,

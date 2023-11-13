@@ -11,20 +11,24 @@ const SearchFilter = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    const url = qs.stringifyUrl({
-      url: window.location.href,
-      query: {
-        search: inputRef.current?.value,
+    const url = qs.stringifyUrl(
+      {
+        url: window.location.href,
+        query: {
+          search:
+            inputRef.current?.value === "" ? null : inputRef.current?.value,
+        },
       },
-    });
+      { skipNull: true }
+    );
 
     router.push(url);
   };
 
   return (
-    <div className="flex items-center rounded-full border gap-2 p-4 px-6 shadow-custom">
+    <div className="flex items-center rounded-full border gap-2 p-2 px-4 sm:p-4 sm:px-6 shadow-custom">
       <input
-        className="outline-none flex-1"
+        className="outline-none w-full"
         type="text"
         placeholder="Search..."
         ref={inputRef}

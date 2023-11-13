@@ -4,17 +4,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-const Heading = () => {
+type Props = {
+  customPath?: string;
+};
+
+const Heading = ({ customPath }: Props) => {
   const pathname = usePathname();
 
-  let splitted = pathname
+  const path = customPath || pathname;
+
+  let splitted = path
     .split("/")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1));
 
   const title = splitted[splitted.length - 1];
 
   return (
-    <header className="bg-slate-100 h-60 flex flex-col items-center justify-center gap-4">
+    <header className="bg-slate-100 h-60 flex flex-col items-center justify-center gap-4 text-center px-2 ">
       <h1 className="text-5xl font-semibold uppercase">{title}</h1>
       <div className="flex items-center gap-2 text-lg">
         {splitted.map((word, i) => {

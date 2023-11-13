@@ -43,7 +43,7 @@ const SelectFilter = ({ data, valueKey }: Props) => {
 
   return (
     <Select onValueChange={handleChange}>
-      <SelectTrigger className="w-40 rounded-full py-4 px-6">
+      <SelectTrigger className="w-48 rounded-full py-4 px-6">
         <SelectValue placeholder="Default Sorting" />
       </SelectTrigger>
       <SelectContent>

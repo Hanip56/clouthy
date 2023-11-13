@@ -2,6 +2,7 @@ import prisma from "@/lib/db";
 import { options } from "@/lib/nextAuthOptions";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+import slugify from "slugify";
 
 export async function POST(req: Request) {
   try {
@@ -35,10 +36,13 @@ export async function POST(req: Request) {
       return new NextResponse("Description is required", { status: 400 });
     }
 
+    const slug = slugify(name, { lower: true, strict: true, replacement: "-" });
+
     const product = await prisma.product.create({
       data: {
         name,
         price,
+        slug,
         description,
         categoryId,
         isFeatured,
