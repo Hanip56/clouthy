@@ -25,6 +25,13 @@ export const columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: "description",
     header: "Description",
+    cell: ({ row }) => (
+      <p>
+        {row.original.description.length > 50
+          ? row.original.description.slice(0, 50) + "..."
+          : row.original.description}
+      </p>
+    ),
   },
   {
     accessorKey: "price",
