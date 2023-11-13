@@ -5,6 +5,8 @@ import { LogOut, ShoppingBag, User } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { options } from "@/lib/nextAuthOptions";
 import LogoutBtn from "./logout-btn";
+import CartSheet from "./cart-sheet";
+import MobileMenuSheet from "./mobile-menu-sheet";
 
 const Navbar = async () => {
   const session = await getServerSession(options);
@@ -22,15 +24,20 @@ const Navbar = async () => {
       path: "/shop",
       label: "Shop",
     },
+    {
+      path: "/contact",
+      label: "Contact",
+    },
   ];
 
   return (
     <div className="w-full bg-slate-100">
-      <nav className="max-w-7xl mx-auto h-28 flex items-center justify-between">
+      <nav className="max-w-7xl mx-auto h-28 flex items-center justify-between px-4">
         {/* logo */}
         <h1 className="text-2xl font-bold">Clouthy</h1>
+
         {/* list */}
-        <ul className="flex gap-6">
+        <ul className="hidden sm:flex gap-6">
           {routes.map((route) => (
             <Link key={route.path} href={route.path}>
               <li className="font-medium tracking-wider">{route.label}</li>
@@ -39,13 +46,7 @@ const Navbar = async () => {
         </ul>
         {/* action */}
         <div className="flex gap-2">
-          <Button
-            size="icon"
-            variant="ghost"
-            className="rounded-full hover:bg-gray-50"
-          >
-            <ShoppingBag className="w-5 h-5" />
-          </Button>
+          <CartSheet />
           {!session && (
             <Link href="/login">
               <Button
@@ -58,6 +59,7 @@ const Navbar = async () => {
             </Link>
           )}
           {session && <LogoutBtn />}
+          <MobileMenuSheet routes={routes} />
         </div>
       </nav>
     </div>

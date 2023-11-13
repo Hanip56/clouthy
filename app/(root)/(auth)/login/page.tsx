@@ -8,7 +8,7 @@ const LoginPage = () => {
   return (
     <div>
       <Heading />
-      <div className="flex items-center max-w-5xl mx-auto my-12">
+      <div className="flex flex-col sm:flex-row items-center max-w-5xl mx-auto my-12 px-4">
         <div className="flex-1">
           <Image
             src={LoginIllustration}
@@ -18,7 +18,7 @@ const LoginPage = () => {
             height={500}
           />
         </div>
-        <div className="flex-1">
+        <div className="flex-1 w-full">
           <LoginForm />
         </div>
       </div>

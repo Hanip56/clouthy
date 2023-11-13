@@ -1,7 +1,7 @@
 import Heading from "@/components/heading";
 import React from "react";
 
-const AboutPage = () => {
+const ContactPage = () => {
   return (
     <div>
       <Heading />
@@ -9,4 +9,4 @@ const AboutPage = () => {
   );
 };
 
-export default AboutPage;
+export default ContactPage;
