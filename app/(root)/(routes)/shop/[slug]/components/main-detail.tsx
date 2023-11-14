@@ -24,6 +24,8 @@ import SelectOption from "./select-option";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import Link from "next/link";
+import useCart from "@/hooks/use-cart";
+import toast from "react-hot-toast";
 
 export type ProductEntryDetail = ProductEntry & { color: Color; size: Size };
 
@@ -39,12 +41,52 @@ type MainDetailProps = {
 };
 
 const MainDetail = ({ product, relatedProducts }: MainDetailProps) => {
-  const [currentSku, setCurrentSku] = useState(product?.items[0]);
+  const [currentSku, setCurrentSku] = useState(product!.items[0]);
   const [quantity, setQuantity] = useState("1");
+
+  const { items, addItem } = useCart();
+
+  console.log({ items });
 
   if (!product) {
     notFound();
   }
+
+  const handleAddToCart = () => {
+    const itemState = items.find(
+      (item) => item.product.sku === currentSku?.sku
+    );
+
+    const mappedProduct = {
+      sku: currentSku.sku,
+      name: product.name,
+      color: currentSku?.color.name,
+      size: currentSku?.size.name,
+      image: product.images[0],
+      price: product.price,
+      stock: currentSku.qty,
+    };
+
+    if (!itemState) {
+      addItem({
+        product: mappedProduct,
+        quantity: Number(quantity),
+      });
+
+      toast.success("Product added.");
+    } else {
+      if (itemState.quantity + Number(quantity) > currentSku.qty) {
+        return toast.error("Max quantity reached.");
+      }
+
+      addItem({
+        product: mappedProduct,
+        quantity: Number(quantity),
+      });
+
+      toast.success("Product added.");
+    }
+  };
 
   return (
     <main className="flex flex-col gap-20 md:gap-28 my-20 md:my-28 max-w-6xl mx-auto px-2 sm:px-4">
@@ -118,7 +160,10 @@ const MainDetail = ({ product, relatedProducts }: MainDetailProps) => {
             </p>
           </div>
           {/* Add to Cart */}
-          <Button className="h-12 self-start w-full sm:w-80">
+          <Button
+            className="h-12 self-start w-full sm:w-80"
+            onClick={handleAddToCart}
+          >
             <Plus className="w-4 h-4 mr-4" /> Add To Cart
           </Button>
         </div>

@@ -22,7 +22,7 @@ const ProductDetailPage = async ({ params }: { params: { slug: string } }) => {
   });
 
   if (!product) {
-    notFound();
+    return notFound();
   }
 
   const relatedProducts = await prisma.product.findMany({

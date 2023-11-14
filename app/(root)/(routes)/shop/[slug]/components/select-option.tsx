@@ -12,9 +12,7 @@ import { cn } from "@/lib/utils";
 type Props = {
   product: ProductDetail;
   currentSku: ProductEntryDetail | undefined;
-  setCurrentSku: React.Dispatch<
-    React.SetStateAction<ProductEntryDetail | undefined>
-  >;
+  setCurrentSku: React.Dispatch<React.SetStateAction<ProductEntryDetail>>;
 };
 
 const SelectOption = ({ product, currentSku, setCurrentSku }: Props) => {
@@ -27,6 +25,9 @@ const SelectOption = ({ product, currentSku, setCurrentSku }: Props) => {
 
   const onChange = (value: string) => {
     const findedData = product.items.find((item) => item.sizeId === value);
+
+    if (!findedData) return;
+
     setCurrentSize(value);
     setCurrentSku(findedData);
   };
