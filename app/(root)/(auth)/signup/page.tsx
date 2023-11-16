@@ -8,7 +8,7 @@ const SignupPage = () => {
   return (
     <div>
       <Heading />
-      <div className="flex flex-col sm:flex-row items-center max-w-5xl mx-auto my-12 px-4">
+      <div className="flex flex-col sm:flex-row items-center max-w-5xl mx-auto my-20 md:my-28 px-4">
         <div className="flex-1">
           <Image
             src={LoginIllustration}

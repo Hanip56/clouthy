@@ -4,8 +4,8 @@ import { Button } from "./ui/button";
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-100 mt-auto py-28 px-6">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-16">
+    <footer className="bg-slate-100 mt-auto py-20 md:py-28 px-6">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-6 lg:gap-16">
         <div className="space-y-4">
           <h1 className="text-2xl font-semibold">Clouthy</h1>
           <p className="text-gray-500">

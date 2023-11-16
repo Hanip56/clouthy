@@ -39,7 +39,7 @@ const ContactMain = () => {
 
   return (
     <main className="flex flex-col md:flex-row gap-x-6 gap-y-12 my-20 md:my-28 max-w-6xl mx-auto px-2 sm:px-4">
-      <div className="basis-[40%] flex flex-col gap-y-6">
+      <div className="basis-[40%] flex flex-col gap-y-4 md:gap-y-6">
         <h2 className="text-3xl font-medium">Contact Us</h2>
         <p className="max-w-xs font-medium text-gray-500 leading-8">
           RT.5/RW.2, Gambir, Central Jakarta City, Jakarta 10110

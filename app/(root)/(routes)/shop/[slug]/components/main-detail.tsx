@@ -26,6 +26,7 @@ import { Plus } from "lucide-react";
 import Link from "next/link";
 import useCart from "@/hooks/use-cart";
 import toast from "react-hot-toast";
+import ImagesTab from "@/components/images-tab";
 
 export type ProductEntryDetail = ProductEntry & { color: Color; size: Size };
 
@@ -92,14 +93,15 @@ const MainDetail = ({ product, relatedProducts }: MainDetailProps) => {
     <main className="flex flex-col gap-20 md:gap-28 my-20 md:my-28 max-w-6xl mx-auto px-2 sm:px-4">
       <div className="flex flex-col md:flex-row gap-8 md:gap-12">
         <div className="flex-1">
-          <Image
+          <ImagesTab images={product.images} />
+          {/* <Image
             src={`${BASE_IMAGE_URL}/${product.images[0].url}`}
             alt={product.name}
             className="w-full aspect-square object-cover"
             width={500}
             height={500}
             priority
-          />
+          /> */}
         </div>
         <div className="flex-1 flex flex-col gap-y-6 md:gap-y-8">
           <h3 className="text-3xl font-medium">{product.name}</h3>

@@ -21,6 +21,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import useCart from "@/hooks/use-cart";
+import ProductCard from "@/components/product-card";
 
 type ProductIncludedType = Product & { images: ImageType[] };
 
@@ -79,25 +80,7 @@ const ShopMain = ({ products, categories, sizes, colors }: Props) => {
         {/* grid items */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
-            <Link href={`/shop/${product.slug}`} key={product.id}>
-              <div className="relative group">
-                <Image
-                  src={`${BASE_IMAGE_URL}/${product.images[0].url}`}
-                  alt=""
-                  width={200}
-                  height={200}
-                  className="w-full h-full aspect-square object-cover"
-                />
-                <div className="absolute top-0 left-0 z-10 w-full h-full">
-                  <div className="w-full h-full bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:bottom-10 transition-all">
-                    <Button variant={"secondary"} className="hover:bg-white">
-                      <Expand className="w-5 h-5 mr-2" /> Expand
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </Link>
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </div>
