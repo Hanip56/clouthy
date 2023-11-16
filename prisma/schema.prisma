@@ -95,15 +95,61 @@ model Image {
 
 model ProductEntry {
   productId String
-  product   Product  @relation("ProductEntryToProduct", fields: [productId], references: [id])
+  product   Product     @relation("ProductEntryToProduct", fields: [productId], references: [id])
   colorId   String
-  color     Color    @relation("ProductEntryToColor", fields: [colorId], references: [id])
+  color     Color       @relation("ProductEntryToColor", fields: [colorId], references: [id])
   sizeId    String
-  size      Size     @relation("ProductEntryToSize", fields: [sizeId], references: [id])
-  sku       Int      @unique @default(autoincrement())
+  size      Size        @relation("ProductEntryToSize", fields: [sizeId], references: [id])
+  sku       Int         @unique @default(autoincrement())
   qty       Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  orderItem OrderItem[] @relation("ProductEntryToOrderItem")
 
   @@id([productId, colorId, sizeId])
+}
+
+model Order {
+  id             String      @id @default(cuid())
+  amount         Int?
+  isPaid         Boolean     @default(false)
+  paymentMethod  String?
+  paymentChannel String?
+  customer       Customer?   @relation("OrderToCustomer")
+  address        address?    @relation("OrderToAddress")
+  orderItem      OrderItem[] @relation("OrderToOrderItem")
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model Customer {
+  id          String   @id @default(cuid())
+  orderId     String   @unique
+  order       Order    @relation("OrderToCustomer", fields: [orderId], references: [id], onDelete: Cascade)
+  firstName   String
+  lastName    String
+  email       String
+  phoneNumber String
+  createdAt   DateTime @default(now())
+}
+
+model address {
+  id          String @id @default(cuid())
+  orderId     String @unique
+  order       Order  @relation("OrderToAddress", fields: [orderId], references: [id], onDelete: Cascade)
+  country     String
+  state       String
+  city        String
+  postalCode  String
+  streetLine1 String
+  streetLine2 String
+}
+
+model OrderItem {
+  id         String       @id @default(cuid())
+  productSku Int
+  product    ProductEntry @relation("ProductEntryToOrderItem", fields: [productSku], references: [sku], onDelete: Cascade)
+  orderId    String
+  order      Order        @relation("OrderToOrderItem", fields: [orderId], references: [id])
+  qty        Int
 }

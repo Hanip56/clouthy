@@ -13,14 +13,14 @@ type ProductCart = {
   stock: number;
 };
 
-type Item = {
+export type ItemCart = {
   product: ProductCart;
   quantity: number;
 };
 
 interface StoreCart {
-  items: Item[];
-  addItem: (data: Item) => void;
+  items: ItemCart[];
+  addItem: (data: ItemCart) => void;
   changeQuantity: (sku: number, quantity: number) => void;
   removeItem: (sku: number) => void;
   removeAll: () => void;
@@ -30,7 +30,7 @@ const useCart = create(
   persist<StoreCart>(
     (set, get) => ({
       items: [],
-      addItem: (data: Item) => {
+      addItem: (data: ItemCart) => {
         const currentItems = [...get().items];
 
         const itemExist = currentItems.findIndex(

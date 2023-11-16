@@ -7,10 +7,21 @@ import useCart from "@/hooks/use-cart";
 import { formatter } from "@/lib/utils";
 import Image from "next/image";
 import { BASE_IMAGE_URL } from "@/constants";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Badge } from "./ui/badge";
 
 const CartSheet = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    if (!mounted) {
+      setMounted(true);
+    }
+  }, [mounted]);
+
   const { items, removeItem, changeQuantity } = useCart();
+  const router = useRouter();
 
   const handleRemove = (sku: number) => {
     removeItem(sku);
@@ -31,11 +42,23 @@ const CartSheet = () => {
     changeQuantity(sku, inputNumber);
   };
 
+  const totalQuantity = items.reduce((acc, cur) => acc + cur.quantity, 0);
   const totalPrice = items.reduce((acc, curr) => {
     const productPrice = Number(curr.product.price) * curr.quantity;
 
     return acc + productPrice;
   }, 0);
+
+  if (!mounted)
+    return (
+      <Button
+        size="icon"
+        variant="ghost"
+        className="rounded-full hover:bg-gray-50 relative"
+      >
+        <ShoppingBag className="w-5 h-5" />
+      </Button>
+    );
 
   return (
     <Sheet>
@@ -43,9 +66,12 @@ const CartSheet = () => {
         <Button
           size="icon"
           variant="ghost"
-          className="rounded-full hover:bg-gray-50"
+          className="rounded-full hover:bg-gray-50 relative"
         >
           <ShoppingBag className="w-5 h-5" />
+          <Badge className="absolute top-1 right-0 w-4 h-4 text-xs  flex items-center justify-center p-1">
+            {totalQuantity}
+          </Badge>
         </Button>
       </SheetTrigger>
       <SheetContent className="p-0 flex flex-col w-full sm:w-[30rem]">
@@ -108,7 +134,13 @@ const CartSheet = () => {
             <p>Subtotal</p>
             <b>{formatter.format(totalPrice)}</b>
           </div>
-          <Button className="w-full text-lg">Continue to Checkout</Button>
+          <Button
+            disabled={items.length < 1}
+            onClick={() => router.push("/checkout")}
+            className="w-full text-lg"
+          >
+            Continue to Checkout
+          </Button>
         </div>
       </SheetContent>
     </Sheet>

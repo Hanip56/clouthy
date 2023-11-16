@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { LogOut, ShoppingBag, User } from "lucide-react";
+import { User } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { options } from "@/lib/nextAuthOptions";
 import LogoutBtn from "./logout-btn";

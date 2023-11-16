@@ -17,6 +17,10 @@ import { Button } from "@/components/ui/button";
 import SearchFilter from "./search-filter";
 import Link from "next/link";
 import MobileAside from "./mobile-aside";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+import useCart from "@/hooks/use-cart";
 
 type ProductIncludedType = Product & { images: ImageType[] };
 
@@ -28,6 +32,23 @@ type Props = {
 };
 
 const ShopMain = ({ products, categories, sizes, colors }: Props) => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const { removeAll } = useCart();
+
+  const success = searchParams.get("success");
+
+  console.log({ success });
+
+  useEffect(() => {
+    if (success) {
+      toast.success("Payment sucessfull!");
+
+      removeAll();
+      router.replace("../shop");
+    }
+  }, [success, router]);
+
   return (
     <main className="flex gap-6 my-20 md:my-28 max-w-7xl mx-auto px-2 sm:px-4">
       <aside className="sm:flex flex-col gap-8 w-72 hidden">

@@ -23,6 +23,10 @@ import { signOut } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import CartItems from "./cart-items";
+import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import useCart from "@/hooks/use-cart";
 
 const formSchema = z.object({
   email: z
@@ -40,6 +44,11 @@ const formSchema = z.object({
 });
 
 const CheckoutForm = ({ session }: { session: Session | null }) => {
+  const [mounted, setMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { items } = useCart();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -56,9 +65,36 @@ const CheckoutForm = ({ session }: { session: Session | null }) => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      setIsLoading(true);
+      const cartItems = items.map((item) => ({
+        sku: item.product.sku,
+        quantity: item.quantity,
+      }));
+
+      const res = await axios.post("/api/checkout", {
+        ...values,
+        cartItems,
+      });
+
+      window.location = res.data.url;
+    } catch (error) {
+      toast.error("Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  useEffect(() => {
+    if (!mounted) {
+      setMounted(true);
+    }
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <Form {...form}>
@@ -266,7 +302,11 @@ const CheckoutForm = ({ session }: { session: Session | null }) => {
 
         {/* Submit button */}
         <div>
-          <Button type="submit" className="w-full h-14 text-lg">
+          <Button
+            disabled={isLoading}
+            type="submit"
+            className="w-full h-14 text-lg"
+          >
             Continue to payment
           </Button>
         </div>
