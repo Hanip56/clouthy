@@ -8,6 +8,7 @@ import {
   SigmaIcon,
   CloudSun,
   ShirtIcon,
+  Orbit,
   Stethoscope,
 } from "lucide-react";
 import Link from "next/link";
@@ -52,6 +53,12 @@ const MainNav = () => {
       path: "/dashboard/product_entrys",
       icon: <Stethoscope />,
       active: pathname === "/dashboard/product_entrys",
+    },
+    {
+      label: "Orders",
+      path: "/dashboard/orders",
+      icon: <Orbit />,
+      active: pathname === "/dashboard/orders",
     },
   ];
 
