@@ -25,7 +25,7 @@ const ProductCard = ({ product }: Props) => {
           alt=""
           width={200}
           height={200}
-          className="w-full h-full aspect-square object-cover"
+          className="w-full h-full aspect-square object-contain"
         />
         <div className="absolute top-0 left-0 z-10 w-full h-full">
           <div className="w-full h-full bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity" />

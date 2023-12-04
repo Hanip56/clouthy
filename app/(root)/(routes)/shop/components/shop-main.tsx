@@ -83,6 +83,16 @@ const ShopMain = ({ products, categories, sizes, colors }: Props) => {
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
+
+        {/* No items found */}
+        {products.length < 1 && (
+          <div className="w-full flex flex-col justify-center items-center text-center">
+            <h5 className="text-lg font-semibold">No results found</h5>
+            <p className="text-gray-500">
+              Sorry, we couldn&apos;t find an item that matches your selection
+            </p>
+          </div>
+        )}
       </div>
     </main>
   );

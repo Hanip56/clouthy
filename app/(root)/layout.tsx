@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
 export default async function ClientLayout({

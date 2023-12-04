@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { User } from "lucide-react";
+import { CloudFog, User } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { options } from "@/lib/nextAuthOptions";
 import LogoutBtn from "./logout-btn";
@@ -34,7 +34,10 @@ const Navbar = async () => {
     <div className="w-full bg-slate-100">
       <nav className="max-w-7xl mx-auto h-28 flex items-center justify-between px-4">
         {/* logo */}
-        <h1 className="text-2xl font-bold">Clouthy</h1>
+        <div className="flex items-center">
+          <CloudFog className="w-6 h-6 mr-2" />
+          <span className="text-2xl font-bold">Clouthy</span>
+        </div>
 
         {/* list */}
         <ul className="hidden sm:flex gap-6">

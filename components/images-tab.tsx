@@ -25,7 +25,7 @@ const ImagesTab = ({ images }: Props) => {
             alt={image.id}
             width={500}
             height={500}
-            className="w-full h-full object-cover aspect-square"
+            className="w-full h-full object-contain aspect-square"
           />
         </TabsContent>
       ))}

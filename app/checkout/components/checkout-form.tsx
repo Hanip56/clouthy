@@ -27,6 +27,7 @@ import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import useCart from "@/hooks/use-cart";
+import { provincesOfIndonesia } from "@/constants";
 
 const formSchema = z.object({
   email: z
@@ -221,8 +222,12 @@ const CheckoutForm = ({ session }: { session: Session | null }) => {
                           placeholder="State/Province"
                         />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="bandung">Bandung</SelectItem>
+                      <SelectContent className="max-h-40">
+                        {provincesOfIndonesia.map((province) => (
+                          <SelectItem key={province} value={province}>
+                            {province}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </FormControl>

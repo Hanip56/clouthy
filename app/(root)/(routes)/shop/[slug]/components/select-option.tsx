@@ -38,6 +38,12 @@ const SelectOption = ({ product, currentSku, setCurrentSku }: Props) => {
     }
   }, [currentSize, availableColors, currentColor, currentSku]);
 
+  const uniqueSizes = product.items.filter((obj, index, self) => {
+    return index === self.findIndex((o) => o["sizeId"] === obj["sizeId"]);
+  });
+
+  console.log({ currentColor });
+
   return (
     <div className="flex gap-8">
       <div className="space-y-4">
@@ -51,7 +57,7 @@ const SelectOption = ({ product, currentSku, setCurrentSku }: Props) => {
             <SelectValue defaultValue={currentSize} placeholder="Select size" />
           </SelectTrigger>
           <SelectContent>
-            {product.items.map((item, i) => (
+            {uniqueSizes.map((item, i) => (
               <SelectItem key={i} value={item.size.id}>
                 {item.size.name}
               </SelectItem>
@@ -61,7 +67,7 @@ const SelectOption = ({ product, currentSku, setCurrentSku }: Props) => {
       </div>
       <div className="flex flex-col justify-between">
         <p className="flex-1">Color</p>
-        <div className="flex items-center flex-1">
+        <div className="flex items-center gap-2 flex-1">
           {availableColors.map((item) => (
             <button
               onClick={() => setCurrentColor(item.colorId)}
