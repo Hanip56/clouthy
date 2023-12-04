@@ -4,12 +4,12 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
-  Caravan,
-  SigmaIcon,
-  CloudSun,
+  PercentDiamond,
+  PencilRuler,
+  PaintBucket,
   ShirtIcon,
-  Orbit,
-  Stethoscope,
+  Truck,
+  Boxes,
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -27,19 +27,19 @@ const MainNav = () => {
     {
       label: "Categories",
       path: "/dashboard/categories",
-      icon: <Caravan />,
+      icon: <PercentDiamond />,
       active: pathname === "/dashboard/categories",
     },
     {
       label: "Sizes",
       path: "/dashboard/sizes",
-      icon: <SigmaIcon />,
+      icon: <PencilRuler />,
       active: pathname === "/dashboard/sizes",
     },
     {
       label: "Color",
       path: "/dashboard/colors",
-      icon: <CloudSun />,
+      icon: <PaintBucket />,
       active: pathname === "/dashboard/colors",
     },
     {
@@ -51,13 +51,13 @@ const MainNav = () => {
     {
       label: "Product Entry",
       path: "/dashboard/product_entrys",
-      icon: <Stethoscope />,
+      icon: <Boxes />,
       active: pathname === "/dashboard/product_entrys",
     },
     {
       label: "Orders",
       path: "/dashboard/orders",
-      icon: <Orbit />,
+      icon: <Truck />,
       active: pathname === "/dashboard/orders",
     },
   ];
@@ -74,7 +74,7 @@ const MainNav = () => {
               "py-3 px-4 flex gap-2 items-center font-semibold transition",
               route.active
                 ? "ring-1 ring-slate-300 shadow-sm rounded-md"
-                : "text-gray-400 hover:text-black"
+                : "text-gray-400 hover:text-black dark:hover:text-white"
             )}
           >
             {route.icon}

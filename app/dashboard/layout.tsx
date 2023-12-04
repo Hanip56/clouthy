@@ -3,6 +3,7 @@ import Sidebar from "./components/Sidebar";
 import Topbar from "./components/topbar";
 import { options } from "@/lib/nextAuthOptions";
 import { redirect } from "next/navigation";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export default async function DashboardLayout({
   children,
@@ -16,14 +17,21 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="flex">
-      <Topbar />
-      <div className="hidden h-screen md:block w-60 border-r flex-shrink-0">
-        <div className="fixed h-full w-60">
-          <Sidebar />
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <div className="flex">
+        <Topbar />
+        <div className="hidden h-screen md:block w-60 border-r flex-shrink-0">
+          <div className="fixed h-full w-60">
+            <Sidebar />
+          </div>
         </div>
+        <main className="w-full h-full pt-14">{children}</main>
       </div>
-      <main className="w-full h-full pt-14">{children}</main>
-    </div>
+    </ThemeProvider>
   );
 }

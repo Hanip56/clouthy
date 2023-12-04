@@ -16,6 +16,7 @@ import { Facebook, Instagram, Mail, Twitter, Youtube } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import GoogleMapComp from "./google-map";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -34,7 +35,8 @@ const ContactMain = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    toast.success("Message sended");
+    form.reset();
   };
 
   return (
@@ -50,16 +52,16 @@ const ContactMain = () => {
           <span className="text-gray-400">demomail@gmail.com</span>
         </div>
         <div className="flex items-center gap-4">
-          <div className="w-8 h-8 rounded-full bg-slate-100 border flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full bg-slate-100 border flex items-center justify-center cursor-pointer">
             <Facebook className="w-5 h-5" />
           </div>
-          <div className="w-8 h-8 rounded-full bg-slate-100 border flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full bg-slate-100 border flex items-center justify-center cursor-pointer">
             <Twitter className="w-5 h-5" />
           </div>
-          <div className="w-8 h-8 rounded-full bg-slate-100 border flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full bg-slate-100 border flex items-center justify-center cursor-pointer">
             <Instagram className="w-5 h-5" />
           </div>
-          <div className="w-8 h-8 rounded-full bg-slate-100 border flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full bg-slate-100 border flex items-center justify-center cursor-pointer">
             <Youtube className="w-5 h-5" />
           </div>
         </div>

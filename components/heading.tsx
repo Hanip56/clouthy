@@ -25,9 +25,9 @@ const Heading = ({ customPath }: Props) => {
       <div className="flex items-center gap-2 text-lg">
         {splitted.map((word, i) => {
           return splitted.length - 1 === i ? (
-            <span>{word === "" ? "Home" : word}</span>
+            <span key={i}>{word === "" ? "Home" : word}</span>
           ) : (
-            <>
+            <div key={i}>
               <Link
                 className="text-gray-500 hover:text-black transition"
                 href={`/${word.toLowerCase()}`}
@@ -35,7 +35,7 @@ const Heading = ({ customPath }: Props) => {
                 {word === "" ? "Home" : word}
               </Link>
               <span>•</span>
-            </>
+            </div>
           );
         })}
       </div>

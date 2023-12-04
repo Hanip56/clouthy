@@ -40,16 +40,19 @@ const LoginForm = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setIsLoading(true);
-      await signIn("credentials", {
+      const res = await signIn("credentials", {
         email: values.email,
         password: values.password,
         redirect: false,
       });
+      console.log({ res });
+      if (!res?.ok) {
+        throw new Error(res?.error ?? "Something went wrong");
+      }
       router.refresh();
     } catch (error) {
-      console.log({ error });
-      const e = (error as any)?.response?.data ?? "Something went wrong";
-      toast.error(e);
+      toast.error((error as any).message);
+      // toast.error(error);
     } finally {
       setIsLoading(false);
     }

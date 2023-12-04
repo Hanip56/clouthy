@@ -51,16 +51,19 @@ const SignupForm = () => {
       setIsLoading(true);
       await axios.post("/api/auth/register", values);
 
-      await signIn("credentials", {
+      const res = await signIn("credentials", {
         name: values.name,
         email: values.email,
         password: values.password,
         redirect: false,
       });
+      if (!res?.ok) {
+        throw new Error(res?.error ?? "Something went wrong");
+      }
+
       router.refresh();
     } catch (error) {
-      const e = (error as any)?.response?.data ?? "Something went wrong";
-      toast.error(e);
+      toast.error((error as any).message);
     } finally {
       setIsLoading(false);
     }
