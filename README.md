@@ -4,8 +4,6 @@ This is a repository for a CLOUTYHY (Full Stack E-Commerce + Dashboard & CMS) : 
 
 Key Features:
 
-- We will be using Shadcn UI for the Admin!
-- Our admin dashboard is going to serve as both CMS, Admin and API!
 - be able to create, update and delete categories
 - be able to create, update and delete products
 - be able to upload multiple images for products, and change them whenever you want!
@@ -14,11 +12,8 @@ Key Features:
 - be able to control which products are "featured" so they show on the homepage!
 - be able to see your orders, sales, etc.
 - be able to see graphs of your revenue etc.
-- learn Clerk Authentication!
 - Order creation
-- Stripe checkout
-- Stripe webhooks
-- MySQL + Prisma + PlanetScale
+- Xendit checkout & Webhooks
 
 Technology Used:
 
